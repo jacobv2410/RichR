@@ -5,6 +5,7 @@
 /client/node_modules
 /
 
+
 # testing
 /coverage
 
@@ -23,3 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 package-lock.json
+
+/config/keys_dev.js

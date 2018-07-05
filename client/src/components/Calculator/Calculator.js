@@ -46,6 +46,7 @@ class Calculator extends Component {
     } else {
       let total = 0;
       for (let key in this.state.variableIncome) {
+        // eslint-disable-next-line
         total += parseInt(this.state.variableIncome[key]);
       }
       return total;
@@ -57,6 +58,7 @@ class Calculator extends Component {
     } else {
       let total = 0;
       for (let key in this.state.variableExpenses) {
+        // eslint-disable-next-line
         total += parseInt(this.state.variableExpenses[key]);
       }
       return total;
@@ -64,12 +66,12 @@ class Calculator extends Component {
   };
 
   deleteVarInc = () => {
-    this.state.variableIncome.splice()
+    this.state.variableIncome.splice();
   };
 
   deleteVarExp = () => {
-    this.state.variableExpenses.splice()
-  }
+    this.state.variableExpenses.splice();
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -80,29 +82,26 @@ class Calculator extends Component {
       this.state.monthlyInsurance * 12 +
       this.state.monthlyUtilities * 12;
     console.log(annualExpenses);
-    let retainedEarnings
-  
+    let retainedEarnings;
 
     if (this.state.tempTotal === "") {
-       retainedEarnings =
+      retainedEarnings =
         annualIncome - annualExpenses + this.sumOfVarInc() - this.sumOfVarExp();
       console.log(retainedEarnings);
       // this.state.retainedEarnings.push(retainedEarnings);
     } else {
-       retainedEarnings =
-        this.state.tempTotal +
-        this.sumOfVarInc() -
-        this.sumOfVarExp();
+      retainedEarnings =
+        this.state.tempTotal + this.sumOfVarInc() - this.sumOfVarExp();
       console.log(retainedEarnings);
     }
-    
+
     // let retainedEarnings =
     //   annualIncome - annualExpenses + this.sumOfVarInc() - this.sumOfVarExp();
     // console.log(retainedEarnings);
 
     this.setState({
       retainedEarnings,
-       /*: retainedEarnings,*/
+      /*: retainedEarnings,*/
       netIncome: "",
       monthlyHousing: "",
       monthlyInsurance: "",
@@ -222,21 +221,27 @@ class Calculator extends Component {
           <div className="col-md-6">
             <VarInc callbackFromParent={this.submitNewVarInc} />
             <ul>
-              {this.state.variableIncome.map( x =>
+              {this.state.variableIncome.map(x => (
                 <li>
                   {x}
-                  <button onClick={() => this.deleteVarInc({ key: x })}>Delete</button>
+                  <button onClick={() => this.deleteVarInc({ key: x })}>
+                    Delete
+                  </button>
                 </li>
-              )}
+              ))}
             </ul>
             <VarExp callbackFromParent={this.submitNewVarExp} />
             <ul>
-              {this.state.variableExpenses.map( x => 
+              {this.state.variableExpenses.map(x => (
                 <li>
                   {x}
-                  <button onClick={() => this.deleteVarExp({ variableExpenses: x })}>Delete</button>
+                  <button
+                    onClick={() => this.deleteVarExp({ variableExpenses: x })}
+                  >
+                    Delete
+                  </button>
                 </li>
-              )}
+              ))}
             </ul>
           </div>
         </div>
