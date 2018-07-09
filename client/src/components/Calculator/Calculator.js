@@ -63,13 +63,26 @@ class Calculator extends Component {
     }
   };
 
-  deleteVarInc = () => {
-    this.state.variableIncome.splice()
+  deleteVarInc = (index) => {
+    console.log(index)
+    let test = [].concat(this.state.variableIncome.slice(0,index)).concat(this.state.variableIncome.slice(index+1))
+    console.log(test)
+    this.setState({variableIncome: test})
+    //this.state.variableIncome
   };
 
-  deleteVarExp = () => {
-    this.state.variableExpenses.splice()
+  //make this function like the one above
+  deleteVarExp = (index) => {
+    console.log(index)
+    let test = [].concat(this.state.variableExpenses.slice(0,index)).concat(this.state.variableExpenses.slice(index+1))
+    console.log(test)
+    this.setState({variableExpenses: test})
   }
+
+  // saveTotal = () => {
+  //   app.post()
+    //check out devconnector tutorial on how to post comments, should be along the same lines as how to post the total to the savedTotals array
+  // }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -167,6 +180,8 @@ class Calculator extends Component {
                 />
                 Monthly
               </label>
+              <br />
+              <br />
               <h2> Expenses </h2>
               <p>
                 Enter how much you pay each month for each of the following
@@ -207,37 +222,48 @@ class Calculator extends Component {
               <br />
               {/* <input type="submit" value="Submit" onChange={this.handleInputChange}/> */}
 
-              <input
-                type="button"
-                placeholder="submit"
-                value="Submit"
-                onClick={this.handleSubmit}
-              />
+             
             </form>
 
             <br />
 
-            <div id="user-total">${this.state.retainedEarnings}</div>
+            <div id="user-total">
+            Total
+            <br />
+            ${this.state.retainedEarnings}</div>
           </div>
           <div className="col-md-6">
             <VarInc callbackFromParent={this.submitNewVarInc} />
+            <br />
             <ul>
-              {this.state.variableIncome.map( x =>
+              {this.state.variableIncome.map( (x,index) =>
                 <li>
                   {x}
-                  <button onClick={() => this.deleteVarInc({ key: x })}>Delete</button>
+                  
+                  <button onClick={() => this.deleteVarInc(index)}>x</button>
                 </li>
               )}
             </ul>
             <VarExp callbackFromParent={this.submitNewVarExp} />
+            <br />
             <ul>
-              {this.state.variableExpenses.map( x => 
+              {this.state.variableExpenses.map( (x, index) => 
                 <li>
                   {x}
-                  <button onClick={() => this.deleteVarExp({ variableExpenses: x })}>Delete</button>
+                  <button onClick={() => this.deleteVarExp(index)}>x</button>
                 </li>
               )}
             </ul>
+            <br />
+            <input
+                type="button"
+                placeholder="submit"
+                value="TOTAL"
+                onClick={this.handleSubmit}
+              />
+            <br />
+            <br />
+            <button onClick={() => this.saveTotal(this.state.retainedEarnings)}>Save</button>
           </div>
         </div>
       </div>
