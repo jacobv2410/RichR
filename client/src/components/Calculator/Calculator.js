@@ -46,6 +46,7 @@ class Calculator extends Component {
     } else {
       let total = 0;
       for (let key in this.state.variableIncome) {
+        // eslint-disable-next-line
         total += parseInt(this.state.variableIncome[key]);
       }
       return total;
@@ -57,12 +58,12 @@ class Calculator extends Component {
     } else {
       let total = 0;
       for (let key in this.state.variableExpenses) {
+        // eslint-disable-next-line
         total += parseInt(this.state.variableExpenses[key]);
       }
       return total;
     }
   };
-
   deleteVarInc = (index) => {
     console.log(index)
     let test = [].concat(this.state.variableIncome.slice(0,index)).concat(this.state.variableIncome.slice(index+1))
@@ -78,6 +79,13 @@ class Calculator extends Component {
     console.log(test)
     this.setState({variableExpenses: test})
   }
+  deleteVarInc = () => {
+    this.state.variableIncome.splice();
+  };
+
+  deleteVarExp = () => {
+    this.state.variableExpenses.splice();
+  };
 
   // saveTotal = () => {
   //   app.post()
@@ -93,29 +101,26 @@ class Calculator extends Component {
       this.state.monthlyInsurance * 12 +
       this.state.monthlyUtilities * 12;
     console.log(annualExpenses);
-    let retainedEarnings
-  
+    let retainedEarnings;
 
     if (this.state.tempTotal === "") {
-       retainedEarnings =
+      retainedEarnings =
         annualIncome - annualExpenses + this.sumOfVarInc() - this.sumOfVarExp();
       console.log(retainedEarnings);
       // this.state.retainedEarnings.push(retainedEarnings);
     } else {
-       retainedEarnings =
-        this.state.tempTotal +
-        this.sumOfVarInc() -
-        this.sumOfVarExp();
+      retainedEarnings =
+        this.state.tempTotal + this.sumOfVarInc() - this.sumOfVarExp();
       console.log(retainedEarnings);
     }
-    
+
     // let retainedEarnings =
     //   annualIncome - annualExpenses + this.sumOfVarInc() - this.sumOfVarExp();
     // console.log(retainedEarnings);
 
     this.setState({
       retainedEarnings,
-       /*: retainedEarnings,*/
+      /*: retainedEarnings,*/
       netIncome: "",
       monthlyHousing: "",
       monthlyInsurance: "",
@@ -241,8 +246,14 @@ class Calculator extends Component {
                   {x}
                   
                   <button onClick={() => this.deleteVarInc(index)}>x</button>
+              {this.state.variableIncome.map(x => (
+                <li>
+                  {x}
+                  <button onClick={() => this.deleteVarInc({ key: x })}>
+                    Delete
+                  </button>
                 </li>
-              )}
+              ))}
             </ul>
             <VarExp callbackFromParent={this.submitNewVarExp} />
             <br />
@@ -251,8 +262,16 @@ class Calculator extends Component {
                 <li>
                   {x}
                   <button onClick={() => this.deleteVarExp(index)}>x</button>
+              {this.state.variableExpenses.map(x => (
+                <li>
+                  {x}
+                  <button
+                    onClick={() => this.deleteVarExp({ variableExpenses: x })}
+                  >
+                    Delete
+                  </button>
                 </li>
-              )}
+              ))}
             </ul>
             <br />
             <input

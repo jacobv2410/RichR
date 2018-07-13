@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// netWorth: req.body.netWorth
+
 // Create Schema
 const ProfileSchema = new Schema({
   user: {
