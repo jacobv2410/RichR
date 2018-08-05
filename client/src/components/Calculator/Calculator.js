@@ -46,7 +46,6 @@ class Calculator extends Component {
     } else {
       let total = 0;
       for (let key in this.state.variableIncome) {
-        // eslint-disable-next-line
         total += parseInt(this.state.variableIncome[key]);
       }
       return total;
@@ -58,38 +57,35 @@ class Calculator extends Component {
     } else {
       let total = 0;
       for (let key in this.state.variableExpenses) {
-        // eslint-disable-next-line
         total += parseInt(this.state.variableExpenses[key]);
       }
       return total;
     }
   };
-  deleteVarInc = (index) => {
-    console.log(index)
-    let test = [].concat(this.state.variableIncome.slice(0,index)).concat(this.state.variableIncome.slice(index+1))
-    console.log(test)
-    this.setState({variableIncome: test})
+
+  deleteVarInc = index => {
+    console.log(index);
+    let test = []
+      .concat(this.state.variableIncome.slice(0, index))
+      .concat(this.state.variableIncome.slice(index + 1));
+    console.log(test);
+    this.setState({ variableIncome: test });
     //this.state.variableIncome
   };
 
   //make this function like the one above
-  deleteVarExp = (index) => {
-    console.log(index)
-    let test = [].concat(this.state.variableExpenses.slice(0,index)).concat(this.state.variableExpenses.slice(index+1))
-    console.log(test)
-    this.setState({variableExpenses: test})
-  }
-  deleteVarInc = () => {
-    this.state.variableIncome.splice();
-  };
-
-  deleteVarExp = () => {
-    this.state.variableExpenses.splice();
+  deleteVarExp = index => {
+    console.log(index);
+    let test = []
+      .concat(this.state.variableExpenses.slice(0, index))
+      .concat(this.state.variableExpenses.slice(index + 1));
+    console.log(test);
+    this.setState({ variableExpenses: test });
   };
 
   // saveTotal = () => {
   //   app.post()
-    //check out devconnector tutorial on how to post comments, should be along the same lines as how to post the total to the savedTotals array
+  //check out devconnector tutorial on how to post comments, should be along the same lines as how to post the total to the savedTotals array
   // }
 
   handleSubmit = event => {
@@ -226,63 +222,50 @@ class Calculator extends Component {
               <br />
               <br />
               {/* <input type="submit" value="Submit" onChange={this.handleInputChange}/> */}
-
-             
             </form>
 
             <br />
 
             <div id="user-total">
-            Total
-            <br />
-            ${this.state.retainedEarnings}</div>
+              Total
+              <br />
+              ${this.state.retainedEarnings}
+            </div>
           </div>
           <div className="col-md-6">
             <VarInc callbackFromParent={this.submitNewVarInc} />
             <br />
             <ul>
-              {this.state.variableIncome.map( (x,index) =>
+              {this.state.variableIncome.map((x, index) => (
                 <li>
                   {x}
-                  
+
                   <button onClick={() => this.deleteVarInc(index)}>x</button>
-              {this.state.variableIncome.map(x => (
-                <li>
-                  {x}
-                  <button onClick={() => this.deleteVarInc({ key: x })}>
-                    Delete
-                  </button>
                 </li>
               ))}
             </ul>
             <VarExp callbackFromParent={this.submitNewVarExp} />
             <br />
             <ul>
-              {this.state.variableExpenses.map( (x, index) => 
+              {this.state.variableExpenses.map((x, index) => (
                 <li>
                   {x}
                   <button onClick={() => this.deleteVarExp(index)}>x</button>
-              {this.state.variableExpenses.map(x => (
-                <li>
-                  {x}
-                  <button
-                    onClick={() => this.deleteVarExp({ variableExpenses: x })}
-                  >
-                    Delete
-                  </button>
                 </li>
               ))}
             </ul>
             <br />
             <input
-                type="button"
-                placeholder="submit"
-                value="TOTAL"
-                onClick={this.handleSubmit}
-              />
+              type="button"
+              placeholder="submit"
+              value="TOTAL"
+              onClick={this.handleSubmit}
+            />
             <br />
             <br />
-            <button onClick={() => this.saveTotal(this.state.retainedEarnings)}>Save</button>
+            <button onClick={() => this.saveTotal(this.state.retainedEarnings)}>
+              Save
+            </button>
           </div>
         </div>
       </div>
